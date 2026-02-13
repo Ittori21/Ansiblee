@@ -9,7 +9,9 @@
 • принимает в качестве параметра порт для nginx и подставляет его в конфигурацию
 
 Запуск на локальной машине
-sudo ansible-playbook -i inventory.ini playbook.yml
+
+**sudo ansible-playbook -i inventory.ini playbook.yml**
 
 Проверка
-curl http://localhost:8080/files/
+
+**curl http://localhost:8080/files/**
