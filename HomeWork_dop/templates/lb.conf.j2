@@ -1,0 +1,15 @@
+upstream backend_servers {
+    server {{ hostvars['web1']['ansible_host'] }}:8080;
+    server {{ hostvars['web2']['ansible_host'] }}:8080;
+}
+
+server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        proxy_pass http://backend_servers;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}

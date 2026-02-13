@@ -1,0 +1,48 @@
+---
+- name: Prepare all servers
+  hosts: all
+  tasks:
+    - name: Update apt cache and upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Nginx common package
+      apt:
+        name: nginx
+        state: present
+
+- name: Configure Web Nodes
+  hosts: webservers
+  tasks:
+    - name: Setup custom index.html
+      template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+
+    - name: Configure Nginx config (Port 8080)
+      template:
+        src: templates/web.conf.j2
+        dest: /etc/nginx/sites-available/default
+      notify: Restart Nginx
+      
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+- name: Configure Load Balancer
+  hosts: balancer
+  tasks:
+    - name: Setup Load Balancer config
+      template:
+        src: templates/lb.conf.j2
+        dest: /etc/nginx/sites-available/default
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
