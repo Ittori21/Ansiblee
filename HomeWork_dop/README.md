@@ -5,7 +5,9 @@
 Все файлы по этому заданию выложить в Github и написать ReadMe со скринами работоспособности и инструкцию по запуску вашего Ansible-сценария
 
 Запуск
-ansible-playbook -i inventory.ini playbook.yml --ask-vault-pass
+
+**ansible-playbook -i inventory.ini playbook.yml --ask-vault-pass**
 
 Тест
-for i in {1..4}; do curl http://<IP-БАЛАНСИРОВЩИКА>; echo "---"; done
+
+**for i in {1..4}; do curl http://<IP-БАЛАНСИРОВЩИКА>; echo "---"; done**
